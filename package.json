@@ -6,7 +6,8 @@
   "scripts": {
     "build": "rimraf build && tsc",
     "dev": "nodemon",
-    "codegen": "graphql-codegen --config codegen.ts"
+    "codegen": "graphql-codegen --config codegen.ts",
+    "serve": "node ./build/index.js"
   },
   "keywords": [],
   "author": "",
