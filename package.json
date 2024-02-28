@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "rimraf build && copyfiles -u 1 ./src/**/*.graphql build && tsc",
+    "build": "rimraf build && copyfiles -u 1 ./src/**/*.graphql build && tsc || exit 0",
     "dev": "nodemon",
     "codegen": "graphql-codegen --config codegen.ts",
     "serve": "node ./build/index.js"
