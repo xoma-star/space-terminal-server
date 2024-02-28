@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "rimraf build && tsc",
+    "build": "rimraf build && copyfiles -u 1 ./src/**/*.graphql build && tsc",
     "dev": "nodemon",
     "codegen": "graphql-codegen --config codegen.ts",
     "serve": "node ./build/index.js"
@@ -20,8 +20,10 @@
     "seedrandom": "^3.0.5"
   },
   "devDependencies": {
+    "@types/copyfiles": "^2",
     "@types/node": "^20.11.16",
     "@types/seedrandom": "^3",
+    "copyfiles": "^2.4.1",
     "nodemon": "^3.0.3",
     "rimraf": "^5.0.5",
     "ts-node": "^10.9.2",
