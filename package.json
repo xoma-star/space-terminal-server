@@ -17,6 +17,7 @@
     "seedrandom": "^3.0.5"
   },
   "scripts": {
-    "dev": "bun --watch src/index.ts"
+    "dev": "bun --watch src/index.ts",
+    "serve": "bun src/index.ts"
   }
 }
