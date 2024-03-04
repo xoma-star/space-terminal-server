@@ -1,6 +1,11 @@
-import {SystemData} from '../../types';
 import {weightRandom} from '../pseudoRandom';
-import {StarLuminosityClass, STARS_DISTRIBUTION, StarSpectralClass, StarType} from '../../constants';
+import {
+  StarLuminosityClass,
+  STARS_DISTRIBUTION,
+  StarSpectralClass,
+  StarType,
+  SystemData
+} from '@xoma_star/shared-stellar-goose';
 
 /**
  * Сгенерировать звездную систему со звездой

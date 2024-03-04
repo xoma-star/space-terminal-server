@@ -1,33 +1,22 @@
 {
   "name": "space-terminal-server",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "build": "rimraf build && copyfiles -u 1 ./src/**/*.graphql build && tsc || exit 0",
-    "dev": "nodemon",
-    "codegen": "graphql-codegen --config codegen.ts",
-    "serve": "node ./build/index.js"
+  "module": "src/index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/seedrandom": "^3.0.8",
+    "bun": "^1.0.29"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
   "dependencies": {
-    "@apollo/server": "^4.10.0",
-    "@graphql-tools/load-files": "^7.0.0",
-    "@graphql-tools/merge": "^9.0.1",
-    "graphql": "^16.8.1",
+    "@xoma_star/shared-stellar-goose": "^0.0.9",
+    "elysia": "^0.8.17",
+    "jose": "^5.2.2",
     "seedrandom": "^3.0.5"
   },
-  "devDependencies": {
-    "@types/copyfiles": "^2",
-    "@types/node": "^20.11.16",
-    "@types/seedrandom": "^3",
-    "copyfiles": "^2.4.1",
-    "nodemon": "^3.0.3",
-    "rimraf": "^5.0.5",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.3.3"
-  },
-  "packageManager": "yarn@4.1.0"
+  "scripts": {
+    "dev": "bun --watch src/index.ts"
+  }
 }

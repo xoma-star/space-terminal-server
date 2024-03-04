@@ -1,15 +1,14 @@
-import {PlanetData, SystemData} from '../../types';
 import seedrandom from 'seedrandom';
 import {generateRandom, generateRandomNormal} from '../pseudoRandom';
 import generateName from '../generateName';
 import {
+  PlanetData,
   RAW_RESOURCE_RARITY,
-  RawResource,
-  StarLuminosityClass,
+  RawResource, StarLuminosityClass,
   StarSpectralClass,
   StarType,
-  TimeOfYear
-} from '../../constants';
+  SystemData, TimeOfYear
+} from '@xoma_star/shared-stellar-goose';
 
 const MAX_TEMPERATURE = 560;
 const MIN_TEMPERATURE = -240;

@@ -1,26 +1,32 @@
-import {ApolloServer} from '@apollo/server';
-import {startStandaloneServer} from '@apollo/server/standalone';
-import {loadFilesSync} from '@graphql-tools/load-files';
-import {mergeTypeDefs} from '@graphql-tools/merge';
-import generateSystem from './shared/lib/generateSystem';
+import {Elysia, ValidationError} from 'elysia';
+import * as jose from 'jose';
+import {generateKey} from './auth/generateKeys.ts';
+import validateChunk from './shared/lib/validateChunk.ts';
+import generateGalacticChunk from './shared/lib/generateGalacticChunk.ts';
+import generateSystem from './shared/lib/generateSystem.ts';
 
-const loadedFiles = loadFilesSync(`${__dirname}/**/*.graphql`);
-const typeDefs = mergeTypeDefs(loadedFiles);
+const app = new Elysia();
 
-const resolvers = {
-  Query: {
-    starSystems: () => ([
-      {type: 'blackhole', name: 'Sagittarius A*'}
-    ]),
-    starSystem: (_, data) => generateSystem(data.seed)
+app.get('/map/chunkPreview', (request) => {
+  try {
+    const isValid = Boolean(request.query.chunk) && validateChunk(request.query.chunk);
+    if (!isValid) {
+      throw new Error('неверные координаты');
+    }
+
+    const chunk = generateGalacticChunk(request.query.chunk)
+      .map(x => generateSystem(x));
+    return chunk;
+  } catch (e) {
+    return e
   }
-};
-
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
 });
 
-startStandaloneServer(server, {
-  listen: { port: 4000 },
+app.post('/auth', async (payload) => {
+  const key = await generateKey();
+  console.log(await jose.jwtVerify(key, new TextEncoder().encode('pizdak')));
+  return key;
 });
+
+app.listen(3000);
+console.log('started at port 3000');

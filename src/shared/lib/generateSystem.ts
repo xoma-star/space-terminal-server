@@ -1,11 +1,15 @@
 import seedrandom from 'seedrandom';
-import {BASE_SYSTEM_APPEAR_PROBABILITY, STAR_TYPE_PROBABILITY, StarType} from '../constants';
 import {weightRandom} from './pseudoRandom';
-import {PlanetData, SystemData} from '../types';
 import generateStarSystem from './generateSystem/generateStarSystem';
 import * as crypto from 'crypto';
 import generatePlanet from './generateSystem/generatePlanet';
 import generateName from './generateName';
+import {
+  BASE_SYSTEM_APPEAR_PROBABILITY, type PlanetData,
+  STAR_TYPE_PROBABILITY,
+  StarType,
+  type SystemData
+} from '@xoma_star/shared-stellar-goose';
 
 /**
  * Г
