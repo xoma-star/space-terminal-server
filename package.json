@@ -4,6 +4,7 @@
   "type": "module",
   "devDependencies": {
     "@types/bun": "latest",
+    "@types/pngjs": "^6.0.4",
     "@types/seedrandom": "^3.0.8",
     "bun": "^1.0.29"
   },
@@ -11,9 +12,13 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "@elysiajs/cors": "^0.8.0",
+    "@elysiajs/stream": "^0.8.0",
     "@xoma_star/shared-stellar-goose": "^0.0.9",
     "elysia": "^0.8.17",
     "jose": "^5.2.2",
+    "pngjs": "^7.0.0",
+    "pureimage": "^0.4.13",
     "seedrandom": "^3.0.5"
   },
   "scripts": {
