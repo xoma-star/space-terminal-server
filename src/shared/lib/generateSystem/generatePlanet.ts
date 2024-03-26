@@ -200,8 +200,6 @@ export default function generatePlanet<T extends StarType>(seed: string, systemD
 
   const resources = generateResources(random, planetData, systemData);
 
-  console.log(resources)
-
   return {
     ...planetData,
     resources
