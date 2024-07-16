@@ -1,16 +1,33 @@
-import {MAX_CHUNK_DEPTH, CHUNK_SIZE} from '@xoma_star/shared-stellar-goose';
+import type {Chunk} from '../types';
 
-export default function validateChunk(chunk: unknown) {
-  if (typeof chunk !== 'string') return false;
-  // Проверка на формат строки
-  const regex = /^[0-9A-V]+:[0-9A-V]+$/;
-  if(!regex.test(chunk)) {
+type ValidateChunkPayload = Partial<Chunk>;
+
+/**
+ * проверить координаты на валидность
+ * @param payload request.query
+ */
+export default function validateChunk(payload: ValidateChunkPayload): boolean {
+  const {
+    left,
+    top,
+    bottom,
+    right
+  } = payload;
+
+  try {
+    const coordinates = [left, right, top, bottom];
+
+    const checkValue = (value: unknown): boolean => {
+      if (typeof value !== 'string') {
+        return false;
+      }
+      const number = parseFloat(value);
+
+      return !isNaN(number);
+    }
+
+    return coordinates.every(checkValue);
+  } catch {
     return false;
   }
-
-  // Разделение строковой координаты на два числа
-  const [x, y] = chunk.split(':').map(coord => parseInt(coord, CHUNK_SIZE));
-
-  // Проверка на одинаковую длину координат
-  return x.toString(CHUNK_SIZE).length === y.toString(CHUNK_SIZE).length && x.toString(CHUNK_SIZE).length <= MAX_CHUNK_DEPTH;
 }

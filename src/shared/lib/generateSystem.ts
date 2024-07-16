@@ -1,4 +1,3 @@
-import seedrandom from 'seedrandom';
 import {weightRandom} from './pseudoRandom';
 import generateStarSystem from './generateSystem/generateStarSystem';
 import * as crypto from 'crypto';
@@ -10,16 +9,26 @@ import {
   StarType,
   type SystemData
 } from '@xoma_star/shared-stellar-goose';
+import Alea from 'alea';
+
+interface Coordinates {
+  x: number;
+  y: number;
+}
 
 /**
  * Г
- * @param seed
+ * @param coordinates
+ * @param fullData надо ли включать расширенные данные
  */
-export default function generateSystem(seed: string): SystemData | null {
+export default function generateSystem(coordinates: Coordinates, fullData: boolean = false): SystemData | null {
+  const {x, y} = coordinates;
+  const seed = `${x}-${y}`;
   const maskSeed = crypto.createHash('sha256')
-    .update(`${seed.toUpperCase()} my secret key`)
+    .update(`${seed} my secret key`)
     .digest('hex');
-  const random = seedrandom(maskSeed);
+
+  const random = new Alea(maskSeed);
   if (random() < (1 - BASE_SYSTEM_APPEAR_PROBABILITY)) {
     return null;
   }
@@ -27,7 +36,10 @@ export default function generateSystem(seed: string): SystemData | null {
   const starType = weightRandom(STAR_TYPE_PROBABILITY, random);
 
   const baseProperties = {
-    name: generateName(random)
+    name: generateName(random),
+    id: maskSeed,
+    offsetX: random(),
+    offsetY: random()
   };
 
   let specificProperties: SystemData;
@@ -37,6 +49,10 @@ export default function generateSystem(seed: string): SystemData | null {
       specificProperties = {...baseProperties, ...generateStarSystem(random)};
       break;
     default: return null;
+  }
+
+  if (!fullData) {
+    return specificProperties;
   }
 
   const planetCount = Math.floor(random() * 7) + 2;

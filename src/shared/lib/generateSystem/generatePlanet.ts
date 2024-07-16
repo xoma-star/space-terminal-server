@@ -1,4 +1,3 @@
-import seedrandom from 'seedrandom';
 import {generateRandom, generateRandomNormal} from '../pseudoRandom';
 import generateName from '../generateName';
 import {
@@ -9,6 +8,7 @@ import {
   StarType,
   SystemData, TimeOfYear
 } from '@xoma_star/shared-stellar-goose';
+import Alea from 'alea';
 
 const MAX_TEMPERATURE = 560;
 const MIN_TEMPERATURE = -240;
@@ -147,7 +147,7 @@ function generateBiome(data: Pick<PlanetData,
  * @param countFromStar - порядковый номер планеты в системе
  */
 export default function generatePlanet<T extends StarType>(seed: string, systemData: SystemData<T>, countFromStar: number): PlanetData {
-  const random = seedrandom(seed);
+  const random = new Alea(seed);
   const name = generateName(random, 3);
   const temperature = generateRandomNormal(MIN_TEMPERATURE, MAX_TEMPERATURE, -30, 0.5, random);
   const radiationLevel = generateRandomNormal(0, 10, 5, 0.5, random);
