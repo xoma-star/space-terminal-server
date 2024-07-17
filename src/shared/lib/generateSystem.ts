@@ -10,6 +10,7 @@ import {
   type SystemData
 } from '@xoma_star/shared-stellar-goose';
 import Alea from 'alea';
+import generateBlackHole from './generateSystem/generateBlackHole.ts';
 
 interface Coordinates {
   x: number;
@@ -35,11 +36,12 @@ export default function generateSystem(coordinates: Coordinates, fullData: boole
 
   const starType = weightRandom(STAR_TYPE_PROBABILITY, random);
 
-  const baseProperties = {
+  const baseProperties: Partial<SystemData> = {
     name: generateName(random),
     id: maskSeed,
     offsetX: random(),
-    offsetY: random()
+    offsetY: random(),
+    starType
   };
 
   let specificProperties: SystemData;
@@ -47,6 +49,9 @@ export default function generateSystem(coordinates: Coordinates, fullData: boole
   switch (starType) {
     case StarType.STAR:
       specificProperties = {...baseProperties, ...generateStarSystem(random)};
+      break;
+    case StarType.BLACK_HOLE:
+      specificProperties = {...baseProperties, ...generateBlackHole(random)};
       break;
     default: return null;
   }

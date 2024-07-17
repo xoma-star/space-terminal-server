@@ -6,6 +6,7 @@ import validateChunk from './shared/lib/validateChunk.ts';
 import generateGalacticChunk from './shared/lib/generateGalacticChunk.ts';
 import {PNG} from 'pngjs';
 import generateTile from './map/generateTile.ts';
+import type {Chunk} from './shared/types.ts';
 
 
 const app = new Elysia();
@@ -18,7 +19,7 @@ app.get('/map/chunkPreview', (request) => {
       throw new Error('неверные координаты');
     }
 
-    return generateGalacticChunk(request.query);
+    return generateGalacticChunk(request.query as unknown as Chunk);
   } catch (e) {
     return e
   }

@@ -4,7 +4,7 @@ import {
   STARS_DISTRIBUTION,
   StarSpectralClass,
   StarType,
-  SystemData
+  type SystemData
 } from '@xoma_star/shared-stellar-goose';
 
 /**
