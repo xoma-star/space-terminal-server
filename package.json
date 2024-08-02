@@ -5,19 +5,22 @@
   "devDependencies": {
     "@types/bun": "latest",
     "@types/pngjs": "^6.0.4",
-    "bun": "^1.0.29"
+    "bun": "^1.1.21"
   },
   "peerDependencies": {
-    "typescript": "^5.0.0"
+    "typescript": "^5.5.4"
   },
   "dependencies": {
-    "@elysiajs/cors": "^0.8.0",
-    "@elysiajs/stream": "^0.8.0",
-    "@xoma_star/shared-stellar-goose": "^0.0.9",
-    "elysia": "^0.8.17",
+    "@elysiajs/cookie": "^0.8.0",
+    "@elysiajs/cors": "^1.1.0",
+    "@elysiajs/jwt": "^1.1.0",
+    "@elysiajs/stream": "^1.1.0",
+    "@telegram-apps/init-data-node": "^1.0.4",
+    "@xoma_star/shared-stellar-goose": "latest",
+    "alea": "^1.0.1",
+    "elysia": "^1.1.4",
     "jose": "^5.2.2",
-    "pngjs": "^7.0.0",
-    "alea": "^1.0.1"
+    "pngjs": "^7.0.0"
   },
   "scripts": {
     "dev": "bun --watch src/index.ts",

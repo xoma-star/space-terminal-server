@@ -3,6 +3,7 @@ import {
   StarLuminosityClass,
   STARS_DISTRIBUTION,
   StarSpectralClass,
+  STAR_LUMINOSITY_BY_SPECTRAL_CLASS,
   StarType,
   type SystemData
 } from '@xoma_star/shared-stellar-goose';
@@ -12,12 +13,8 @@ import {
  * @param random
  */
 export default function generateStarSystem(random: () => number): SystemData<StarType.STAR> {
-  const spectralClass = weightRandom((Object.keys(STARS_DISTRIBUTION) as StarSpectralClass[])
-    .reduce((acc, key) => {
-      acc[key] = STARS_DISTRIBUTION[key].frequency;
-      return acc;
-    }, {} as Record<StarSpectralClass, number>), random);
-  const luminosityProbability = STARS_DISTRIBUTION[spectralClass].luminosityClasses as Record<StarLuminosityClass, number>;
+  const spectralClass = weightRandom(STARS_DISTRIBUTION, random);
+  const luminosityProbability = STAR_LUMINOSITY_BY_SPECTRAL_CLASS[spectralClass];
   const luminosityClass = weightRandom(luminosityProbability, random);
 
   return {
