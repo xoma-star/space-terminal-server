@@ -22,7 +22,7 @@ interface Coordinates {
  * @param coordinates
  * @param fullData надо ли включать расширенные данные
  */
-export default function generateSystem(coordinates: Coordinates, fullData: boolean = false): SystemData | null {
+export default function generateSystem(coordinates: Coordinates, fullData: boolean = false): SystemData<StarType> | null {
   const {x, y} = coordinates;
   const seed = `${x}-${y}`;
   const maskSeed = crypto.createHash('sha256')
@@ -36,7 +36,7 @@ export default function generateSystem(coordinates: Coordinates, fullData: boole
 
   const starType = weightRandom(STAR_TYPE_PROBABILITY, random);
 
-  const baseProperties: Partial<SystemData> = {
+  const baseProperties: Partial<SystemData<StarType>> = {
     name: generateName(random),
     id: maskSeed,
     offsetX: random(),
@@ -44,7 +44,7 @@ export default function generateSystem(coordinates: Coordinates, fullData: boole
     starType
   };
 
-  let specificProperties: SystemData;
+  let specificProperties: SystemData<StarType>;
 
   switch (starType) {
     case StarType.STAR:
@@ -52,6 +52,12 @@ export default function generateSystem(coordinates: Coordinates, fullData: boole
       break;
     case StarType.BLACK_HOLE:
       specificProperties = {...baseProperties, ...generateBlackHole(random)};
+      break;
+    case StarType.NEUTRON_STAR:
+      specificProperties = {...baseProperties};
+      break;
+    case StarType.WORMHOLE:
+      specificProperties = {...baseProperties};
       break;
     default: return null;
   }
